@@ -1,0 +1,29 @@
+{
+  "name": "harvest-profit-api",
+  "version": "1.0.0",
+  "description": "Adds authentication to api requests and creates cookie",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HarvestProfit/harvest-profit-api.git"
+  },
+  "keywords": [
+    "harvest",
+    "profit",
+    "api"
+  ],
+  "author": "Harvest Profit",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HarvestProfit/harvest-profit-api/issues"
+  },
+  "homepage": "https://github.com/HarvestProfit/harvest-profit-api#readme"
+}
