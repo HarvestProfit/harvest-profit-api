@@ -1,0 +1,49 @@
+version: 2
+jobs:
+  jest:
+    docker:
+      - image: circleci/node:latest
+    steps:
+      # Use the NPM registry
+      - run:
+          name: Add NPM_TOKEN
+          command: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+
+      - checkout
+
+      # Only necessary if app uses webpacker or yarn in some other way
+      - restore_cache:
+          keys:
+            - harvestprofitapi-yarn-{{ checksum "yarn.lock" }}
+            - harvestprofitapi-yarn-
+
+      - run:
+          name: Yarn Install
+          command: yarn install --cache-folder ~/.cache/yarn
+
+      # Store yarn / webpacker cache
+      - save_cache:
+          key: harvestprofitapi-yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+      # run jest tests
+      - run:
+          name: Jest Suite
+          command: yarn test --ci --testResultsProcessor="jest-junit"
+          environment:
+            JEST_JUNIT_OUTPUT: "test_results/js-test-results.xml"
+
+      # Save test results for timing analysis
+      - store_test_results:
+          path: test_results
+
+      - run:
+          name: Upload Coverage
+          command: ./node_modules/.bin/codecov
+
+workflows:
+  version: 2
+  jest:
+    jobs:
+      - jest
