@@ -7,7 +7,9 @@
     "test": "test"
   },
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "jest": "^23.4.1"
+  },
   "scripts": {
     "test": "jest test/ --coverage"
   },
