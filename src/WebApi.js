@@ -182,7 +182,7 @@ export default class WebApi {
    * @return {object}
    */
   static delete(url, params = {}) {
-    const api = new Api();
+    const api = new WebApi();
     return api._delete(url, params);
   }
 
@@ -194,7 +194,7 @@ export default class WebApi {
    * @return {object}
    */
   static deleteAuthenticated(url, params = {}) {
-    const api = new Api();
+    const api = new WebApi();
     return api._deleteAuthenticated(url, params);
   }
 
@@ -205,7 +205,7 @@ export default class WebApi {
    * @return {object}
    */
   static get(url, params = {}) {
-    const api = new Api();
+    const api = new WebApi();
     return api._get(url, params);
   }
 
@@ -217,7 +217,7 @@ export default class WebApi {
    * @return {object}
    */
   static getAuthenticated(url, params = {}) {
-    const api = new Api();
+    const api = new WebApi();
     return api._getAuthenticated(url, params);
   }
 
@@ -228,7 +228,7 @@ export default class WebApi {
    * @return {object}
    */
   static post(url, data = {}) {
-    const api = new Api();
+    const api = new WebApi();
     return api._post(url, data);
   }
 
@@ -240,7 +240,7 @@ export default class WebApi {
    * @return {object}
    */
   static postAuthenticated(url, data = {}) {
-    const api = new Api();
+    const api = new WebApi();
     return api._postAuthenticated(url, data);
   }
 
@@ -251,7 +251,7 @@ export default class WebApi {
    * @return {object}
    */
   static put(url, data = {}) {
-    const api = new Api();
+    const api = new WebApi();
     return api._put(url, data);
   }
 
@@ -263,7 +263,7 @@ export default class WebApi {
    * @return {object}
    */
   static putAuthenticated(url, data = {}) {
-    const api = new Api();
+    const api = new WebApi();
     return api._putAuthenticated(url, data);
   }
 
