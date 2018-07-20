@@ -146,8 +146,85 @@ describe('Webapi', () => {
     });
   });
 
-  describe('Interceptor tests', () => {
+  describe('Interceptor refresh test', () => {
+    let webapi = new WebApi();
+    let params = {
+      name: 'Harvest',
+      email: 'harvest@harvestprofit.com'
+    };
+    beforeEach(() => {
+      moxios.wait(function () {
+        console.log(moxios.requests.count());
+        let request = moxios.requests.at(0);
+        request.respondWith({
+          status: 403,
+        });
+        moxios.wait(function () {
+          console.log(moxios.requests.count());
+          let request = moxios.requests.at(1);
+          request.respondWith({
+            status: 200,
+            response: {
+              auth_token: 'abc123',
+            }
+          });
+          moxios.wait(function () {
+            console.log(moxios.requests.count());
+            let request = moxios.requests.at(2);
+            request.respondWith({
+              status: 200,
+              response: {
+                value: true
+              }
+            });
+          });
+        });
+      });
+    });
 
+    it('token should be refreshed', async () => {
+      WebApi.setAuthCookie('wrongtoken');
+      await WebApi.get('/anything', params)
+      .then((response) => {
+        console.log(response);
+        expect(response.data.value).toEqual(true);
+      })
+    });
+  });
+
+  describe('Interceptor failed refresh test', () => {
+    let webapi = new WebApi();
+    let params = {
+      name: 'Harvest',
+      email: 'harvest@harvestprofit.com'
+    };
+    beforeEach(() => {
+      moxios.wait(function () {
+        console.log(moxios.requests.count());
+        let request = moxios.requests.at(0);
+        request.respondWith({
+          status: 403,
+        });
+        moxios.wait(function () {
+          console.log(moxios.requests.count());
+          let request = moxios.requests.at(1);
+          request.respondWith({
+            status: 405,
+          });
+        });
+      });
+    });
+
+    it('expired token', async () => {
+      WebApi.setAuthCookie('wrongtoken');
+      await WebApi.get('/anything', params)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        expect(error.response.status).toEqual(405);
+      })
+    });
   });
 
   describe('Test cookie', () => {
