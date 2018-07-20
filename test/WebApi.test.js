@@ -10,7 +10,7 @@ describe('Webapi', () => {
     moxios.uninstall();
   });
 
-  describe('Api requests', () => {
+  describe('Get Api requests', () => {
     it('it should make a get request', () => {
       //make a request here
       let params = {
@@ -45,8 +45,8 @@ describe('Webapi', () => {
         request.respondWith({
           status: 200,
           response: [
-            { id: 1, item: 'potato', cooked: false },
-            { id: 2, item: 'carrot', cooked: true }
+            { id: 1, item: 'Harvest-item1' },
+            { id: 2, item: 'Harvest-item2' }
           ]
         })
       } else {
@@ -73,8 +73,8 @@ describe('Webapi', () => {
         request.respondWith({
           status: 200,
           response: [
-            { id: 1, item: 'potato', cooked: false },
-            { id: 2, item: 'carrot', cooked: true }
+            { id: 1, item: 'Harvest-item1' },
+            { id: 2, item: 'Harvest-item2' }
           ]
         })
       } else {
@@ -88,7 +88,81 @@ describe('Webapi', () => {
         expect(response.data.status).toEqual(401);
       })
     });
+  });
 
+  describe('Post Api requests', () => {
+    it('it should make a post request', () => {
+      let params = {
+        name: 'Harvest',
+        email: 'harvest@harvestprofit.com'
+      };
+      moxios.wait(function () {
+        let request = moxios.requests.mostRecent()
+        request.respondWith({
+          status: 201,
+          response: [
+            { id: 1, item: 'Harvest-item1' }
+          ]
+        })
+      });
+      WebApi.post('/create', params)
+      .then(function (response) {
+        expect(response.data.status).toEqual(401);
+      });
+    })
 
+    it('it should make an authenticated post request', () => {
+      WebApi.setAuthCookie('harvestprofitauth');
+      let params = {
+        name: 'Harvest',
+        email: 'harvest@harvestprofit.com'
+      };
+      moxios.wait(function () {
+        let request = moxios.requests.mostRecent()
+        if (request.headers.Authentication == 'harvestprofitauth') {
+        request.respondWith({
+          status: 201,
+          response: [
+            { id: 1, item: 'Harvest-item1' }
+          ]
+        })
+      } else {
+        request.respondWith({
+          status: 401
+        })
+      }
+      });
+      WebApi.postAuthenticated('/secureEndpoint', params)
+      .then(function (response) {
+        expect(response.data.status).toEqual(201);
+      })
+    });
+
+    it('it should fail to make an authenticated post request', () => {
+      WebApi.setAuthCookie('harvestprofitauth');
+      let params = {
+        name: 'Harvest',
+        email: 'harvest@harvestprofit.com'
+      };
+      moxios.wait(function () {
+        let request = moxios.requests.mostRecent()
+        if (request.headers.Authentication == 'harvestprofitauth') {
+        request.respondWith({
+          status: 200,
+          response: [
+            { id: 1, item: 'Harvest-item1' }
+          ]
+        })
+      } else {
+        request.respondWith({
+          status: 401
+        })
+      }
+      });
+      WebApi.postAuthenticated('/secureEndpoint', params)
+      .then(function (response) {
+        expect(response.data.status).toEqual(401);
+      })
+    });
   });
 });
