@@ -54,7 +54,7 @@ eslint no-underscore-dangle: ["error", {
  * This class is used to make API requests to the main app server.
  * Re-Authentication is handled exclusively by this class.
  */
-export default class WebApi {
+class WebApi {
   constructor() {
     this.baseUrl = process.env.API_URL || 'http://localhost:3000/api/v3';
     this.interceptor = this._setInteceptor();
@@ -62,6 +62,7 @@ export default class WebApi {
 
   /**
    * Performs a delete request on the specified Url with optional parameters
+   * @private
    * @param {string} url The url to make a delete request to
    * @param {object} params The params to add to the url
    */
@@ -75,6 +76,7 @@ export default class WebApi {
   /**
    * Performs an authenticated delete request on the specified Url with optional
    * parameters
+   * @private
    * @param {string} url The url to make a delete request to
    * @param {object} params The params to add to the url
    */
@@ -90,6 +92,7 @@ export default class WebApi {
 
   /**
    * Performs a get request on the specified Url with optional parameters
+   * @private
    * @param {string} url The url to make a request to
    * @param {object} params The params to add to the url
    */
@@ -103,6 +106,7 @@ export default class WebApi {
   /**
    * Performs an authenticated get request on the specified Url with optional
    * parameters
+   * @private
    * @param {string} url The url to make a request to
    * @param {object} params The params to add to the url
    */
@@ -118,6 +122,7 @@ export default class WebApi {
 
   /**
    * Performs a post request on the specified Url with optional parameters
+   * @private
    * @param {string} url The url to make a request to
    * @param {object} data The data to post
    */
@@ -129,6 +134,7 @@ export default class WebApi {
   /**
    * Performs an authenticated post request on the specified Url with optional
    * parameters
+   * @private
    * @param {string} url The url to make a request to
    * @param {object} data The data to post
    */
@@ -143,6 +149,7 @@ export default class WebApi {
 
   /**
    * Performs a put request on the specified Url with optional parameters
+   * @private
    * @param {string} url The url to make a request to
    * @param {object} data The data to post
    */
@@ -154,6 +161,7 @@ export default class WebApi {
   /**
    * Performs an authenticated put request on the specified Url with optional
    * parameters
+   * @private
    * @param {string} url The url to make a request to
    * @param {object} data The data to post
    */
@@ -169,6 +177,7 @@ export default class WebApi {
   /**
    * Setup interceptor to refresh tokens if necessary. Only useful for
    * authenticated API requests.
+   * @private
    */
   _setInteceptor() {
     axios.interceptors.response.use(response => response, (error) => {
@@ -176,7 +185,7 @@ export default class WebApi {
       let responseCode = 0;
       if (error &amp;&amp; error.response) {
         responseCode = error.response.status;
-      } 
+      }
 
       if (original &amp;&amp; original.url.indexOf('refresh') === -1 &amp;&amp; !original.harvest_retried &amp;&amp; responseCode === 403) {
         original.harvest_retried = true;
@@ -194,7 +203,7 @@ export default class WebApi {
   }
 
   /**
-   * Thin wrapper for the [_get]{@link Api#_delete} method.
+   * Performs a delete request on the specified Url with optional parameters
    * @param {string} url The url to make a delete request to
    * @param {object} params The params to add to the url
    * @return {object}
@@ -205,8 +214,8 @@ export default class WebApi {
   }
 
   /**
-   * Thin wrapper for the [_deleteAuthenticated]{@link Api#_deleteAuthenticated}
-   * method.
+   * Performs an authenticated delete request on the specified Url with optional
+   * parameters
    * @param {string} url The url to make a delete request to
    * @param {object} params The params to add to the url
    * @return {object}
@@ -217,7 +226,7 @@ export default class WebApi {
   }
 
   /**
-   * Thin wrapper for the [_get]{@link Api#_get} method.
+   * Performs a get request on the specified Url with optional parameters
    * @param {string} url The url to make a request to
    * @param {object} params The params to add to the url
    * @return {object}
@@ -228,8 +237,8 @@ export default class WebApi {
   }
 
   /**
-   * Thin wrapper for the [_getAuthenticated]{@link Api#_getAuthenticated}
-   * method.
+   * Performs an authenticated get request on the specified Url with optional
+   * parameters
    * @param {string} url The url to make a request to
    * @param {object} params The params to add to the url
    * @return {object}
@@ -240,7 +249,7 @@ export default class WebApi {
   }
 
   /**
-   * Thin wrapper for the [_post]{@link Api#_post} method.
+   * Performs a post request on the specified Url with optional parameters
    * @param {string} url The url to make a request to
    * @param {object} data The data to post
    * @return {object}
@@ -251,8 +260,8 @@ export default class WebApi {
   }
 
   /**
-   * Thin wrapper for the [_postAuthenticated]{@link Api#_postAuthenticated}
-   * method.
+   * Performs an authenticated post request on the specified Url with optional
+   * parameters
    * @param {string} url The url to make a request to
    * @param {object} data The data to post
    * @return {object}
@@ -263,7 +272,7 @@ export default class WebApi {
   }
 
   /**
-   * Thin wrapper for the [_put]{@link Api#_put} method.
+   * Performs a put request on the specified Url with optional parameters
    * @param {string} url The url to make a request to
    * @param {object} data The data to post
    * @return {object}
@@ -274,8 +283,8 @@ export default class WebApi {
   }
 
   /**
-   * Thin wrapper for the [_putAuthenticated]{@link Api#_putAuthenticated}
-   * method.
+   * Performs an authenticated put request on the specified Url with optional
+   * parameters
    * @param {string} url The url to make a request to
    * @param {object} data The data to post
    * @return {object}
@@ -308,6 +317,8 @@ export default class WebApi {
     });
   }
 }
+
+export default WebApi;
 </code></pre>
         </article>
     </section>
@@ -318,13 +329,13 @@ export default class WebApi {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.exports.html">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#_delete">_delete</a></li><li><a href="global.html#_deleteAuthenticated">_deleteAuthenticated</a></li><li><a href="global.html#_get">_get</a></li><li><a href="global.html#_getAuthenticated">_getAuthenticated</a></li><li><a href="global.html#_post">_post</a></li><li><a href="global.html#_postAuthenticated">_postAuthenticated</a></li><li><a href="global.html#_put">_put</a></li><li><a href="global.html#_putAuthenticated">_putAuthenticated</a></li><li><a href="global.html#_setInteceptor">_setInteceptor</a></li><li><a href="global.html#delete">delete</a></li><li><a href="global.html#deleteAuthenticated">deleteAuthenticated</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getAuthCookie">getAuthCookie</a></li><li><a href="global.html#getAuthenticated">getAuthenticated</a></li><li><a href="global.html#post">post</a></li><li><a href="global.html#postAuthenticated">postAuthenticated</a></li><li><a href="global.html#put">put</a></li><li><a href="global.html#putAuthenticated">putAuthenticated</a></li><li><a href="global.html#setAuthCookie">setAuthCookie</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="WebApi.html">WebApi</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Jul 20 2018 13:39:36 GMT-0500 (Central Daylight Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Fri Jul 20 2018 13:53:55 GMT-0500 (Central Daylight Time)
 </footer>
 
 <script> prettyPrint(); </script>
