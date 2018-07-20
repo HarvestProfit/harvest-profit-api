@@ -165,4 +165,80 @@ describe('Webapi', () => {
       })
     });
   });
+
+  describe('Put Api requests', () => {
+    it('it should make a put request', () => {
+      let params = {
+        name: 'Harvest',
+        email: 'harvest@harvestprofit.com'
+      };
+      moxios.wait(function () {
+        let request = moxios.requests.mostRecent()
+        request.respondWith({
+          status: 202,
+          response: [
+            { id: 1, item: 'Harvest-item2' }
+          ]
+        })
+      });
+      WebApi.put('/update', params)
+      .then(function (response) {
+        expect(response.data.status).toEqual(401);
+      });
+    })
+
+    it('it should make an authenticated put request', () => {
+      WebApi.setAuthCookie('harvestprofitauth');
+      let params = {
+        name: 'Harvest',
+        email: 'harvest@harvestprofit.com'
+      };
+      moxios.wait(function () {
+        let request = moxios.requests.mostRecent()
+        if (request.headers.Authentication == 'harvestprofitauth') {
+        request.respondWith({
+          status: 202,
+          response: [
+            { id: 1, item: 'Harvest-item2' }
+          ]
+        })
+      } else {
+        request.respondWith({
+          status: 401
+        })
+      }
+      });
+      WebApi.putAuthenticated('/secureEndpoint', params)
+      .then(function (response) {
+        expect(response.data.status).toEqual(202);
+      })
+    });
+
+    it('it should fail to make an authenticated post request', () => {
+      WebApi.setAuthCookie('harvestprofitauth');
+      let params = {
+        name: 'Harvest',
+        email: 'harvest@harvestprofit.com'
+      };
+      moxios.wait(function () {
+        let request = moxios.requests.mostRecent()
+        if (request.headers.Authentication == 'harvestprofitauth') {
+        request.respondWith({
+          status: 202,
+          response: [
+            { id: 1, item: 'Harvest-item2' }
+          ]
+        })
+      } else {
+        request.respondWith({
+          status: 401
+        })
+      }
+      });
+      WebApi.putAuthenticated('/secureEndpoint', params)
+      .then(function (response) {
+        expect(response.data.status).toEqual(401);
+      })
+    });
+  });
 });
