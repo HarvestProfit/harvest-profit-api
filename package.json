@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Adds authentication to api requests and creates cookie",
   "main": "dist/index.js",
-  "dependencies": {},
+  "dependencies": {
+    "axios": "^0.18.0"
+  },
   "devDependencies": {
     "babel-preset-airbnb": "^2.5.2",
     "babel-preset-stage-2": "^6.24.1",
