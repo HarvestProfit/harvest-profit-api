@@ -55,7 +55,7 @@ export default class WebApi {
     return axios.delete(apiUrl, {
       params,
       headers: {
-        Authorization: Api.getAuthCookie(),
+        Authorization: WebApi.getAuthCookie(),
       },
     });
   }
@@ -83,7 +83,7 @@ export default class WebApi {
     return axios.get(apiUrl, {
       params,
       headers: {
-        Authorization: Api.getAuthCookie(),
+        Authorization: WebApi.getAuthCookie(),
       },
     });
   }
@@ -108,7 +108,7 @@ export default class WebApi {
     const apiUrl = this.baseUrl + url;
     return axios.post(apiUrl, data, {
       headers: {
-        Authorization: Api.getAuthCookie(),
+        Authorization: WebApi.getAuthCookie(),
       },
     });
   }
@@ -133,7 +133,7 @@ export default class WebApi {
     const apiUrl = this.baseUrl + url;
     return axios.put(apiUrl, data, {
       headers: {
-        Authorization: Api.getAuthCookie(),
+        Authorization: WebApi.getAuthCookie(),
       },
     });
   }

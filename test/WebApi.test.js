@@ -39,9 +39,6 @@ describe('Webapi', () => {
         name: 'Harvest',
         email: 'harvest@harvestprofit.com'
       };
-      let headers = {
-        Authorization: WebApi.getAuthCookie()
-      };
       moxios.wait(function () {
         let request = moxios.requests.mostRecent()
         if (request.headers.Authentication == 'harvestprofitauth') {
@@ -58,7 +55,7 @@ describe('Webapi', () => {
         })
       }
       });
-      WebApi.get('/secureEndpoint', params, headers)
+      WebApi.getAuthenticated('/secureEndpoint', params)
       .then(function (response) {
         expect(response.data.status).toEqual(200);
       })
@@ -70,9 +67,6 @@ describe('Webapi', () => {
         name: 'Harvest',
         email: 'harvest@harvestprofit.com'
       };
-      let headers = {
-        Authorization: 'notrighttoken'
-      };
       moxios.wait(function () {
         let request = moxios.requests.mostRecent()
         if (request.headers.Authentication == 'harvestprofitauth') {
@@ -89,12 +83,12 @@ describe('Webapi', () => {
         })
       }
       });
-      WebApi.get('/secureEndpoint', params, headers)
+      WebApi.getAuthenticated('/secureEndpoint', params)
       .then(function (response) {
         expect(response.data.status).toEqual(401);
       })
     });
 
-    
+
   });
 });
