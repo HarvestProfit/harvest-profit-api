@@ -62,7 +62,7 @@ describe('Webapi', () => {
       moxios.wait(function () {
         let request = moxios.requests.mostRecent()
         request.respondWith({
-          status: WebApi.getAuthCookie() == 'harvestprofitauth' ? 202 : 250,
+          status: WebApi.getAuthCookie() == 'harvestprofitauth' ? 202 : 401,
         });
       });
     });
@@ -79,8 +79,11 @@ describe('Webapi', () => {
       WebApi.setAuthCookie('wrongtoken');
       await WebApi.getAuthenticated('/secureEndpoint', params)
       .then(function (response) {
-        expect(response.status).toEqual(250);
+        expect(response.status).toEqual(202);
       })
+      .catch(function (error) {
+        expect(error.response.status).toEqual(401);
+      });
     });
 
     it('it should make an authenticated post request', async () => {
@@ -88,15 +91,18 @@ describe('Webapi', () => {
       await WebApi.postAuthenticated('/secureEndpoint', params)
       .then(function (response) {
         expect(response.status).toEqual(202);
-      })
+      });
     });
 
     it('it should fail to make an authenticated post request', async () => {
       WebApi.setAuthCookie('wrongtoken');
       await WebApi.postAuthenticated('/secureEndpoint', params)
       .then(function (response) {
-        expect(response.status).toEqual(250);
+        expect(response.status).toEqual(202);
       })
+      .catch(function (error) {
+        expect(error.response.status).toEqual(401);
+      });
     });
 
     it('it should make an authenticated put request', async () => {
@@ -104,15 +110,18 @@ describe('Webapi', () => {
       await WebApi.putAuthenticated('/secureEndpoint', params)
       .then(function (response) {
         expect(response.status).toEqual(202);
-      })
+      });
     });
 
     it('it should fail to make an authenticated put request', async () => {
       WebApi.setAuthCookie('wrongtoken');
       await WebApi.putAuthenticated('/secureEndpoint', params)
       .then(function (response) {
-        expect(response.status).toEqual(250);
+        expect(response.status).toEqual(202);
       })
+      .catch(function (error) {
+        expect(error.response.status).toEqual(401);
+      });
     });
 
     it('it should make an authenticated delete request', async () => {
@@ -120,15 +129,18 @@ describe('Webapi', () => {
       await WebApi.deleteAuthenticated('/secureEndpoint', params)
       .then(function (response) {
         expect(response.status).toEqual(202);
-      })
+      });
     });
 
     it('it should fail to make an authenticated delete request', async () => {
       WebApi.setAuthCookie('wrongtoken');
       await WebApi.deleteAuthenticated('/secureEndpoint', params)
       .then(function (response) {
-        expect(response.status).toEqual(250);
+        expect(response.status).toEqual(202);
       })
+      .catch(function (error) {
+        expect(error.response.status).toEqual(401);
+      });
     });
   });
 });
