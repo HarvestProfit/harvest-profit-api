@@ -1,5 +1,6 @@
 import WebApi from '../src/WebApi';
 import moxios from 'moxios';
+import Cookie from 'js-cookie';
 
 describe('Webapi', () => {
   beforeEach(() => {
@@ -8,6 +9,7 @@ describe('Webapi', () => {
 
   afterEach(() => {
     moxios.uninstall();
+    Cookie.remove('harvest_profit');
   });
 
   describe('Basic Api requests', () => {
@@ -143,298 +145,20 @@ describe('Webapi', () => {
       });
     });
   });
+
+  describe('Interceptor tests', () => {
+
+  });
+
+  describe('Test cookie', () => {
+
+    it('it should default return undefined', () => {
+      expect(WebApi.getAuthCookie()).toEqual('undefined');
+    });
+
+    it('it should return the cookie value', () => {
+      WebApi.setAuthCookie('Harvest');
+      expect(WebApi.getAuthCookie()).toEqual('Harvest');
+    });
+  });
 });
-
-
-/*
-
-  describe('Post Api requests', () => {
-
-
-
-
-
-
-
-
-
-
-
-
-    it('it should make an authenticated get request', () => {
-      WebApi.setAuthCookie('harvestprofitauth');
-      let params = {
-        name: 'Harvest',
-        email: 'harvest@harvestprofit.com'
-      };
-      moxios.wait(function () {
-        let request = moxios.requests.mostRecent()
-        if (request.headers.Authentication == 'harvestprofitauth') {
-        request.respondWith({
-          status: 200,
-          response: [
-            { id: 1, item: 'Harvest-item1' },
-            { id: 2, item: 'Harvest-item2' }
-          ]
-        })
-      } else {
-        request.respondWith({
-          status: 401
-        })
-      }
-      });
-      WebApi.getAuthenticated('/secureEndpoint', params)
-      .then(function (response) {
-        expect(response.status).toEqual(200);
-      })
-    });
-
-    it('it should fail to make an authenticated get request', () => {
-      WebApi.setAuthCookie('notrighttoken');
-      let params = {
-        name: 'Harvest',
-        email: 'harvest@harvestprofit.com'
-      };
-      moxios.wait(function () {
-        let request = moxios.requests.mostRecent()
-        if (request.headers.Authentication == 'harvestprofitauth') {
-        request.respondWith({
-          status: 200,
-          response: [
-            { id: 1, item: 'Harvest-item1' },
-            { id: 2, item: 'Harvest-item2' }
-          ]
-        })
-      } else {
-        request.respondWith({
-          status: 401
-        })
-      }
-      });
-      WebApi.getAuthenticated('/secureEndpoint', params)
-      .then(function (response) {
-        expect(response.data.status).toEqual(401);
-      })
-    });
-  });
-
-
-
-
-
-
-
-
-
-
-
-
-
-    it('it should make an authenticated post request', () => {
-      WebApi.setAuthCookie('harvestprofitauth');
-      let params = {
-        name: 'Harvest',
-        email: 'harvest@harvestprofit.com'
-      };
-      moxios.wait(function () {
-        let request = moxios.requests.mostRecent()
-        if (request.headers.Authentication == 'harvestprofitauth') {
-        request.respondWith({
-          status: 201,
-          response: [
-            { id: 1, item: 'Harvest-item1' }
-          ]
-        })
-      } else {
-        request.respondWith({
-          status: 401
-        })
-      }
-      });
-      WebApi.postAuthenticated('/secureEndpoint', params)
-      .then(function (response) {
-        expect(response.data.status).toEqual(201);
-      })
-    });
-
-    it('it should fail to make an authenticated post request', async () => {
-      WebApi.setAuthCookie('nottherighttoken');
-      let params = {
-        name: 'Harvest',
-        email: 'harvest@harvestprofit.com'
-      };
-      moxios.wait(function () {
-        let request = moxios.requests.mostRecent()
-        if (response.request.headers.Authentication == 'djgf;lgf;') {
-        request.respondWith({
-          status: 402,
-          response: [
-            { id: 1, item: 'Harvest-item1' }
-          ]
-        })
-      } else {
-        request.respondWith({
-          status: 401
-        })
-      }
-      });
-      await WebApi.postAuthenticated('/secureEndpoint', params)
-      .then(function (response) {
-        //console.log(response);
-        expect(response.status).toEqual(401);
-      });
-    });
-  });
-
-  describe('Put Api requests', () => {
-    it('it should make a put request', () => {
-      let params = {
-        name: 'Harvest',
-        email: 'harvest@harvestprofit.com'
-      };
-      moxios.wait(function () {
-        let request = moxios.requests.mostRecent()
-        request.respondWith({
-          status: 202,
-          response: [
-            { id: 1, item: 'Harvest-item2' }
-          ]
-        })
-      });
-      WebApi.put('/update', params)
-      .then(function (response) {
-        expect(response.data.status).toEqual(202);
-      });
-    })
-
-    it('it should make an authenticated put request', () => {
-      WebApi.setAuthCookie('harvestprofitauth');
-      let params = {
-        name: 'Harvest',
-        email: 'harvest@harvestprofit.com'
-      };
-      moxios.wait(function () {
-        let request = moxios.requests.mostRecent()
-        if (request.headers.Authentication == 'harvestprofitauth') {
-        request.respondWith({
-          status: 202,
-          response: [
-            { id: 1, item: 'Harvest-item2' }
-          ]
-        })
-      } else {
-        request.respondWith({
-          status: 401
-        })
-      }
-      });
-      WebApi.putAuthenticated('/secureEndpoint', params)
-      .then(function (response) {
-        expect(response.data.status).toEqual(202);
-      })
-    });
-
-    it('it should fail to make an authenticated put request', () => {
-      WebApi.setAuthCookie('harvestprofitauth');
-      let params = {
-        name: 'Harvest',
-        email: 'harvest@harvestprofit.com'
-      };
-      moxios.wait(function () {
-        let request = moxios.requests.mostRecent()
-        if (request.headers.Authentication == 'harvestprofitauth') {
-        request.respondWith({
-          status: 202,
-          response: [
-            { id: 1, item: 'Harvest-item2' }
-          ]
-        })
-      } else {
-        request.respondWith({
-          status: 401
-        })
-      }
-      });
-      WebApi.putAuthenticated('/secureEndpoint', params)
-      .then(function (response) {
-        expect(response.data.status).toEqual(401);
-      })
-    });
-  });
-
-  describe('Delete Api requests', () => {
-    it('it should make a delete request', () => {
-      let params = {
-        name: 'Harvest',
-        email: 'harvest@harvestprofit.com'
-      };
-      moxios.wait(function () {
-        let request = moxios.requests.mostRecent()
-        request.respondWith({
-          status: 200,
-          response: [
-            { id: 1, item: 'Harvest-item2' }
-          ]
-        })
-      });
-      WebApi.delete('/delete', params)
-      .then(function (response) {
-        expect(response.data.status).toEqual(200);
-      });
-    })
-
-    it('it should make an authenticated delete request', () => {
-      WebApi.setAuthCookie('harvestprofitauth');
-      let params = {
-        name: 'Harvest',
-        email: 'harvest@harvestprofit.com'
-      };
-      moxios.wait(function () {
-        let request = moxios.requests.mostRecent()
-        if (request.headers.Authentication == 'harvestprofitauth') {
-        request.respondWith({
-          status: 200,
-          response: [
-            { id: 1, item: 'Harvest-item2' }
-          ]
-        })
-      } else {
-        request.respondWith({
-          status: 401
-        })
-      }
-      });
-      WebApi.deleteAuthenticated('/secureEndpoint', params)
-      .then(function (response) {
-        expect(response.data.status).toEqual(200);
-      })
-    });
-
-    it('it should fail to make an authenticated delete request', () => {
-      WebApi.setAuthCookie('harvestprofitauth');
-      let params = {
-        name: 'Harvest',
-        email: 'harvest@harvestprofit.com'
-      };
-      moxios.wait(function () {
-        let request = moxios.requests.mostRecent()
-        if (request.headers.Authentication == 'harvestprofitauth') {
-        request.respondWith({
-          status: 202,
-          response: [
-            { id: 1, item: 'Harvest-item2' }
-          ]
-        })
-      } else {
-        request.respondWith({
-          status: 401
-        })
-      }
-      });
-      WebApi.deleteAuthenticated('/secureEndpoint', params)
-      .then(function (response) {
-        expect(response.data.status).toEqual(401);
-      })
-    });
-  });
-*/
