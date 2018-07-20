@@ -13,21 +13,25 @@ describe('Webapi', () => {
   describe('Api requests', () => {
     it('it should make a get request', () => {
       //make a request here
-      let response = WebApi.get('/potato', {
-        baked: 'a little',
-        salted: 'lighly'
-      });
+      let params = {
+        name: 'Harvest',
+        reason: 'fun'
+      }
       moxios.wait(function () {
         let request = moxios.requests.mostRecent()
         request.respondWith({
           status: 200,
           response: [
-            { id: 1, firstName: 'potato', eaten: false },
-            { id: 2, firstName: 'patota', eaten: true }
+            { id: 1, item: 'potato', cooked: false },
+            { id: 2, item: 'carrot', cooked: true }
           ]
         })
       });
-      expect(response).toEqual(200);
+      WebApi.get('/endpoint', params)
+      .then(function (response) {
+        console.log(response);
+        expect(response.data.status).toEqual(200);
+      });
     });
   });
 });
