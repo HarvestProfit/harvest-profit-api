@@ -1,0 +1,10 @@
+{
+    "plugins": ["plugins/markdown"],
+    "templates": {
+      "includeDate": false,
+      "linenums": true,
+      "syntaxTheme": "dark",
+      "systemName": "Harvest Profit Calculations",
+      "theme": "slate"
+    }
+}

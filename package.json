@@ -14,10 +14,12 @@
     "babel-preset-stage-2": "^6.24.1",
     "codecov": "^3.0.4",
     "jest": "^23.4.1",
+    "jsdoc": "^3.5.5",
     "moxios": "^0.4.0"
   },
   "scripts": {
-    "test": "jest test/ --coverage"
+    "test": "jest test/ --coverage",
+    "build-docs": "jsdoc src/* -t ./node_modules/ --configure jsdoc.conf.json --destination docs --readme README.md"
   },
   "repository": {
     "type": "git",
