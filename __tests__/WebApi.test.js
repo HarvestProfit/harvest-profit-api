@@ -154,13 +154,11 @@ describe('Webapi', () => {
     };
     beforeEach(() => {
       moxios.wait(function () {
-        console.log(moxios.requests.count());
         let request = moxios.requests.at(0);
         request.respondWith({
           status: 403,
         });
         moxios.wait(function () {
-          console.log(moxios.requests.count());
           let request = moxios.requests.at(1);
           request.respondWith({
             status: 200,
@@ -169,7 +167,6 @@ describe('Webapi', () => {
             }
           });
           moxios.wait(function () {
-            console.log(moxios.requests.count());
             let request = moxios.requests.at(2);
             request.respondWith({
               status: 200,
@@ -186,7 +183,6 @@ describe('Webapi', () => {
       WebApi.setAuthCookie('wrongtoken');
       await WebApi.get('/anything', params)
       .then((response) => {
-        console.log(response);
         expect(response.data.value).toEqual(true);
       })
     });
@@ -200,13 +196,11 @@ describe('Webapi', () => {
     };
     beforeEach(() => {
       moxios.wait(function () {
-        console.log(moxios.requests.count());
         let request = moxios.requests.at(0);
         request.respondWith({
           status: 403,
         });
         moxios.wait(function () {
-          console.log(moxios.requests.count());
           let request = moxios.requests.at(1);
           request.respondWith({
             status: 405,
@@ -219,7 +213,6 @@ describe('Webapi', () => {
       WebApi.setAuthCookie('wrongtoken');
       await WebApi.get('/anything', params)
       .then((response) => {
-        console.log(response);
       })
       .catch((error) => {
         expect(error.response.status).toEqual(405);
