@@ -44,9 +44,6 @@ jobs:
           command: ./node_modules/.bin/codecov
 
   circ:
-    docker:
-      - image: circleci/node:latest
-
     steps:
       # Automatically deploy docs to gh-pages
       - deploy:
