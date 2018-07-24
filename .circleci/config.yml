@@ -5,6 +5,9 @@ jobs:
       - image: circleci/node:latest
 
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "44:b4:f9:1c:e1:4a:7c:e8:5f:fd:88:2e:95:ab:85:83"
       # Use the NPM registry
       - run:
           name: Add NPM_TOKEN
