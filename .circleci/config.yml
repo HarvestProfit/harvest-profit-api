@@ -52,6 +52,7 @@ jobs:
       - deploy:
           name: Deploy
           command: yarn run publish-docs
+          path: package.json
 
 
 workflows:
