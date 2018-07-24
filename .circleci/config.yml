@@ -2,7 +2,7 @@ version: 2
 jobs:
   jest:
     branches:
-      ignore:
+      - ignore:
         - gh-pages
     docker:
       - image: circleci/node:latest
