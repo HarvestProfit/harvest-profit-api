@@ -1,9 +1,5 @@
 import axios from 'axios';
 import Cookie from 'js-cookie';
-import { routerActions } from 'react-router-redux';
-// Import Raven from outside webpack
-// eslint-disable-next-line
-import Raven from 'raven-js';
 
 export const PER_PAGE_COUNT = 25;
 
