@@ -1,8 +1,8 @@
-import WebApi from '../src/WebApi';
+import Api from '../src/Api';
 import moxios from 'moxios';
 import Cookie from 'js-cookie';
 
-describe('Webapi', () => {
+describe('Api', () => {
   beforeEach(() => {
     moxios.install();
   });
@@ -27,28 +27,28 @@ describe('Webapi', () => {
     });
 
     it('it should make a get request', async () => {
-      await WebApi.get('/endpoint', params)
+      await Api.get('/endpoint', params)
       .then(function (response) {
         expect(response.status).toEqual(200);
       });
     });
 
     it('it should make a post request', async () => {
-      await WebApi.post('/create', params)
+      await Api.post('/create', params)
       .then(function (response) {
         expect(response.status).toEqual(200);
       });
     })
 
     it('it should make a put request', async () => {
-      await WebApi.put('/update', params)
+      await Api.put('/update', params)
       .then(function (response) {
         expect(response.status).toEqual(200);
       });
     });
 
     it('it should make a delete request', async () => {
-      await WebApi.delete('/delete', params)
+      await Api.delete('/delete', params)
       .then(function (response) {
         expect(response.status).toEqual(200);
       });
@@ -64,22 +64,22 @@ describe('Webapi', () => {
       moxios.wait(function () {
         let request = moxios.requests.mostRecent()
         request.respondWith({
-          status: WebApi.getAuthCookie() == 'harvestprofitauth' ? 202 : 401,
+          status: Api.getAuthCookie() == 'harvestprofitauth' ? 202 : 401,
         });
       });
     });
 
     it('it should make an authenticated get request', async () => {
-      WebApi.setAuthCookie('harvestprofitauth');
-      await WebApi.getAuthenticated('/secureEndpoint', params)
+      Api.setAuthCookie('harvestprofitauth');
+      await Api.getAuthenticated('/secureEndpoint', params)
       .then(function (response) {
         expect(response.status).toEqual(202);
       })
     });
 
     it('it should fail to make an authenticated get request', async () => {
-      WebApi.setAuthCookie('wrongtoken');
-      await WebApi.getAuthenticated('/secureEndpoint', params)
+      Api.setAuthCookie('wrongtoken');
+      await Api.getAuthenticated('/secureEndpoint', params)
       .then(function (response) {
         expect(response.status).toEqual(202);
       })
@@ -89,16 +89,16 @@ describe('Webapi', () => {
     });
 
     it('it should make an authenticated post request', async () => {
-      WebApi.setAuthCookie('harvestprofitauth');
-      await WebApi.postAuthenticated('/secureEndpoint', params)
+      Api.setAuthCookie('harvestprofitauth');
+      await Api.postAuthenticated('/secureEndpoint', params)
       .then(function (response) {
         expect(response.status).toEqual(202);
       });
     });
 
     it('it should fail to make an authenticated post request', async () => {
-      WebApi.setAuthCookie('wrongtoken');
-      await WebApi.postAuthenticated('/secureEndpoint', params)
+      Api.setAuthCookie('wrongtoken');
+      await Api.postAuthenticated('/secureEndpoint', params)
       .then(function (response) {
         expect(response.status).toEqual(202);
       })
@@ -108,16 +108,16 @@ describe('Webapi', () => {
     });
 
     it('it should make an authenticated put request', async () => {
-      WebApi.setAuthCookie('harvestprofitauth');
-      await WebApi.putAuthenticated('/secureEndpoint', params)
+      Api.setAuthCookie('harvestprofitauth');
+      await Api.putAuthenticated('/secureEndpoint', params)
       .then(function (response) {
         expect(response.status).toEqual(202);
       });
     });
 
     it('it should fail to make an authenticated put request', async () => {
-      WebApi.setAuthCookie('wrongtoken');
-      await WebApi.putAuthenticated('/secureEndpoint', params)
+      Api.setAuthCookie('wrongtoken');
+      await Api.putAuthenticated('/secureEndpoint', params)
       .then(function (response) {
         expect(response.status).toEqual(202);
       })
@@ -127,16 +127,16 @@ describe('Webapi', () => {
     });
 
     it('it should make an authenticated delete request', async () => {
-      WebApi.setAuthCookie('harvestprofitauth');
-      await WebApi.deleteAuthenticated('/secureEndpoint', params)
+      Api.setAuthCookie('harvestprofitauth');
+      await Api.deleteAuthenticated('/secureEndpoint', params)
       .then(function (response) {
         expect(response.status).toEqual(202);
       });
     });
 
     it('it should fail to make an authenticated delete request', async () => {
-      WebApi.setAuthCookie('wrongtoken');
-      await WebApi.deleteAuthenticated('/secureEndpoint', params)
+      Api.setAuthCookie('wrongtoken');
+      await Api.deleteAuthenticated('/secureEndpoint', params)
       .then(function (response) {
         expect(response.status).toEqual(202);
       })
@@ -147,7 +147,7 @@ describe('Webapi', () => {
   });
 
   describe('Interceptor refresh test', () => {
-    let webapi = new WebApi();
+    let api = new Api();
     let params = {
       name: 'Harvest',
       email: 'harvest@harvestprofit.com'
@@ -180,8 +180,8 @@ describe('Webapi', () => {
     });
 
     it('token should be refreshed', async () => {
-      WebApi.setAuthCookie('wrongtoken');
-      await WebApi.get('/anything', params)
+      Api.setAuthCookie('wrongtoken');
+      await Api.get('/anything', params)
       .then((response) => {
         expect(response.data.value).toEqual(true);
       })
@@ -189,7 +189,7 @@ describe('Webapi', () => {
   });
 
   describe('Interceptor failed refresh test', () => {
-    let webapi = new WebApi();
+    let api = new Api();
     let params = {
       name: 'Harvest',
       email: 'harvest@harvestprofit.com'
@@ -210,8 +210,8 @@ describe('Webapi', () => {
     });
 
     it('expired token', async () => {
-      WebApi.setAuthCookie('wrongtoken');
-      await WebApi.get('/anything', params)
+      Api.setAuthCookie('wrongtoken');
+      await Api.get('/anything', params)
       .then((response) => {
       })
       .catch((error) => {
@@ -223,12 +223,12 @@ describe('Webapi', () => {
   describe('Test cookie', () => {
 
     it('it should default return undefined', () => {
-      expect(WebApi.getAuthCookie()).toEqual('undefined');
+      expect(Api.getAuthCookie()).toEqual('undefined');
     });
 
     it('it should return the cookie value', () => {
-      WebApi.setAuthCookie('Harvest');
-      expect(WebApi.getAuthCookie()).toEqual('Harvest');
+      Api.setAuthCookie('Harvest');
+      expect(Api.getAuthCookie()).toEqual('Harvest');
     });
   });
 });
