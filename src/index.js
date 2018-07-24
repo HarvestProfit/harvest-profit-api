@@ -1,3 +1,3 @@
-import WebApi from './WebApi';
+import Api from './Api';
 
-export default WebApi;
+export default Api;
