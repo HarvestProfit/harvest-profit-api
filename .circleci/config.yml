@@ -7,7 +7,7 @@ jobs:
     steps:
       - add_ssh_keys:
           fingerprints:
-            - "44:b4:f9:1c:e1:4a:7c:e8:5f:fd:88:2e:95:ab:85:83"
+            - "3b:3d:fa:0a:35:9e:48:b2:1a:b4:3b:4b:8b:33:15:91"
       # Use the NPM registry
       - run:
           name: Add NPM_TOKEN
