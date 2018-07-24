@@ -58,10 +58,6 @@ jobs:
               git rm -rf .
               cd ..
 
-              npm run build
-
-              cp -a build/. out/.
-
               mkdir -p out/.circleci && cp -a .circleci/. out/.circleci/.
               cd out
 
