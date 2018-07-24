@@ -46,7 +46,7 @@ jobs:
       # Automatically deploy docs to gh-pages
       - deploy:
           name: Deploy
-          command: yarn run publish-docs
+          command: yarn run authenticate && yarn run publish-docs
 
 
 

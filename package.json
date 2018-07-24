@@ -29,6 +29,7 @@
     "test": "jest --coverage",
     "build-docs": "jsdoc src/* --configure jsdoc.conf.json --destination docs --readme README.md",
     "pre-publish": "yarn run build",
+    "authenticate": "git config --global user.email $GH_EMAIL && git config --global user.name $GH_NAME",
     "publish-docs": "yarn run build-docs && gh-pages -d docs -m '[ci skip] update pages'"
   },
   "repository": {
