@@ -3,9 +3,9 @@ jobs:
   jest:
     docker:
       - image: circleci/node:latest
-      environment:
-        SOURCE_BRANCH: master
-        TARGET_BRANCH: gh-pages
+    environment:
+      - SOURCE_BRANCH: master
+      - TARGET_BRANCH: gh-pages
     steps:
       # Use the NPM registry
       - run:
