@@ -1,7 +1,7 @@
 {
   "name": "harvest-profit-api",
   "version": "1.0.0",
-  "description": "Adds authentication to api requests and creates cookie",
+  "description": "Adds authentication to api requests and manages cookie.",
   "main": "src/index.js",
   "dependencies": {
     "axios": "^0.18.0",

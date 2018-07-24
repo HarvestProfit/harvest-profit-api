@@ -13,8 +13,10 @@ yarn add harvest-profit-api
 ```
 
 ## Usage
-It will probably do something cool.
 
+```js static
+import Api from 'harvest-profit-api';
+```
 ## Development
 While developing, you may find it useful to preview your components. You can do so by running the development server with:
 ```bash
