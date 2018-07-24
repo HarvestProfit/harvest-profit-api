@@ -1,8 +1,13 @@
 {
-  "name": "harvest-profit-api",
-  "version": "1.0.0",
+  "name": "@harvest-profit/api",
+  "version": "0.0.1",
   "description": "Adds authentication to api requests and manages cookie.",
-  "main": "src/index.js",
+  "main": "dist/index.js",
+  "files": [
+    "LICENSE.md",
+    "README.md",
+    "dist"
+  ],
   "dependencies": {
     "axios": "^0.18.0",
     "js-cookie": "^2.2.0",
@@ -11,6 +16,7 @@
     "react-router-redux": "^4.0.8"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-preset-airbnb": "^2.5.2",
     "babel-preset-stage-2": "^6.24.1",
     "codecov": "^3.0.4",
@@ -20,8 +26,10 @@
     "moxios": "^0.4.0"
   },
   "scripts": {
+    "build": "babel src -d dist --source-maps",
     "test": "jest --coverage",
     "build-docs": "jsdoc src/* --configure jsdoc.conf.json --destination docs --readme README.md",
+    "pre-publish": "yarn run build",
     "publish-docs": "yarn run build-docs && gh-pages -d docs -m '[ci skip] update pages'"
   },
   "repository": {
