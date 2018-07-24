@@ -1,14 +1,9 @@
 version: 2
 jobs:
   jest:
-    branches:
-      - ignore:
-        - gh-pages
     docker:
       - image: circleci/node:latest
-    environment:
-      - SOURCE_BRANCH: master
-      - TARGET_BRANCH: gh-pages
+
     steps:
       # Use the NPM registry
       - run:
@@ -48,33 +43,22 @@ jobs:
           name: Upload Coverage
           command: ./node_modules/.bin/codecov
 
+  circ:
+    docker:
+      - image: circleci/node:latest
+
+    steps:
       # Automatically deploy docs to gh-pages
       - deploy:
           name: Deploy
-          command: |
-            if [ $CIRCLE_BRANCH == $SOURCE_BRANCH ]; then
+          command: yarn run publish-docs
 
-              git config --global user.email $GH_EMAIL
-              git config --global user.name $GH_NAME
-
-              git clone $CIRCLE_REPOSITORY_URL out
-
-              cd out
-              git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
-              git rm -rf .
-              cd ..
-
-              mkdir -p out/.circleci && cp -a .circleci/. out/.circleci/.
-              cd out
-
-              git add -A
-              git commit -m "Automated deployment to GitHub Pages: ${CIRCLE_SHA1}" --allow-empty
-
-              git push origin $TARGET_BRANCH
-            fi
 
 workflows:
   version: 2
   jest:
     jobs:
       - jest
+  circleci:
+    jobs:
+      - circ
