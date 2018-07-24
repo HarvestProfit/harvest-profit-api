@@ -5,11 +5,11 @@
 ## Installation
 You can install this via [NPM](https://www.npmjs.com/):
 ```bash
-npm install harvest-profit-api
+npm install @harvest-profit/api
 ```
 Or [Yarn](https://yarnpkg.com/en/):
 ```bash
-yarn add harvest-profit-api
+yarn add @harvest-profit/api
 ```
 
 ## Usage
