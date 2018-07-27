@@ -1,6 +1,6 @@
 import axios from 'axios';
 import Cookie from 'js-cookie';
-import ApiCore from './ApiCore';
+import ApiCore from '@harvest-profit/api-core';
 export const PER_PAGE_COUNT = 25;
 
 /*
@@ -34,8 +34,8 @@ class Api {
    * @return {object}
    */
   static get(url, params = {}) {
-    const api = new ApiCore();
-    return api._get(url, params);
+    const api = new ApiCore(this.baseUrl, this.getAuthCookie());
+    return api.get(url, params);
   }
 
   /**
@@ -46,8 +46,8 @@ class Api {
    * @return {object}
    */
   static getAuthenticated(url, params = {}) {
-    const api = new ApiCore(this.baseUrl, this.getAuthCookie);
-    return api._getAuthenticated(url, params);
+    const api = new ApiCore(this.baseUrl, this.getAuthCookie());
+    return api.getAuthenticated(url, params);
   }
 
   /**
@@ -57,8 +57,8 @@ class Api {
    * @return {object}
    */
   static post(url, data = {}) {
-    const api = new ApiCore();
-    return api._post(url, data);
+    const api = new ApiCore(this.baseUrl, this.getAuthCookie());
+    return api.post(url, data);
   }
 
   /**
@@ -69,8 +69,8 @@ class Api {
    * @return {object}
    */
   static postAuthenticated(url, data = {}) {
-    const api = new ApiCore(this.baseUrl, this.getAuthCookie);
-    return api._postAuthenticated(url, data);
+    const api = new ApiCore(this.baseUrl, this.getAuthCookie());
+    return api.postAuthenticated(url, data);
   }
 
   /**
@@ -80,8 +80,8 @@ class Api {
    * @return {object}
    */
   static put(url, data = {}) {
-    const api = new ApiCore();
-    return api._put(url, data);
+    const api = new ApiCore(this.baseUrl, this.getAuthCookie());
+    return api.put(url, data);
   }
 
   /**
@@ -92,8 +92,8 @@ class Api {
    * @return {object}
    */
   static putAuthenticated(url, data = {}) {
-    const api = new ApiCore(this.baseUrl, this.getAuthCookie);
-    return api._putAuthenticated(url, data);
+    const api = new ApiCore(this.baseUrl, this.getAuthCookie());
+    return api.putAuthenticated(url, data);
   }
 
   /**
@@ -103,8 +103,8 @@ class Api {
    * @return {object}
    */
   static delete(url, params = {}) {
-    const api = new ApiCore();
-    return api._delete(url, params);
+    const api = new ApiCore(this.baseUrl, this.getAuthCookie());
+    return api.delete(url, params);
   }
 
   /**
@@ -115,8 +115,8 @@ class Api {
    * @return {object}
    */
   static deleteAuthenticated(url, params = {}) {
-    const api = new ApiCore(this.baseUrl, this.getAuthCookie);
-    return api._deleteAuthenticated(url, params);
+    const api = new ApiCore(this.baseUrl, this.getAuthCookie());
+    return api.deleteAuthenticated(url, params);
   }
 
   /**

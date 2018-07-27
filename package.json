@@ -10,7 +10,7 @@
     "dist"
   ],
   "dependencies": {
-    "@harvest-profit/api-core": "0.0.1",
+    "@harvest-profit/api-core": "0.0.4",
     "axios": "^0.18.0",
     "js-cookie": "^2.2.0"
   },
