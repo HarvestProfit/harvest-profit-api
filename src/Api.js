@@ -3,28 +3,13 @@ import Cookie from 'js-cookie';
 import ApiCore from '@harvest-profit/api-core';
 export const PER_PAGE_COUNT = 25;
 
-/*
-eslint no-underscore-dangle: ["error", {
-  "allow": [
-  "_delete",
-  "_deleteAuthenticated",
-  "_get",
-  "_getAuthenticated",
-  "_post",
-  "_postAuthenticated",
-  "_put",
-  "_putAuthenticated",
-  "_setInteceptor"]
-}]
-*/
-
 /**
- * This class is used to make API requests to the main app server.
- * Re-Authentication is handled exclusively by this class.
+ * api class is used to make apiCore requests to the main app server.
+ * Re-Authentication is handled exclusively by api class.
  */
 class Api {
   constructor() {
-    this.baseUrl = process.env.API_URL || 'http://localhost:3000/api/v3';
+    this.baseUrl = process.env.apiCore_URL || 'http://localhost:3000/apiCore/v3';
   }
 
   /**
@@ -34,9 +19,9 @@ class Api {
    * @return {object}
    */
   static get(url, params = {}) {
-    const this = new Api();
-    const api = new ApiCore(this.baseUrl, this.getAuthCookie());
-    return api.get(url, params);
+    const api = new Api();
+    const apiCore = new ApiCore(api.baseUrl, Api.getAuthCookie());
+    return apiCore.get(url, params);
   }
 
   /**
@@ -47,9 +32,9 @@ class Api {
    * @return {object}
    */
   static getAuthenticated(url, params = {}) {
-    const this = new Api();
-    const api = new ApiCore(this.baseUrl, this.getAuthCookie());
-    return api.getAuthenticated(url, params);
+    const api = new Api();
+    const apiCore = new ApiCore(api.baseUrl, Api.getAuthCookie());
+    return apiCore.getAuthenticated(url, params);
   }
 
   /**
@@ -59,9 +44,9 @@ class Api {
    * @return {object}
    */
   static post(url, data = {}) {
-    const this = new Api();
-    const api = new ApiCore(this.baseUrl, this.getAuthCookie());
-    return api.post(url, data);
+    const api = new Api();
+    const apiCore = new ApiCore(api.baseUrl, Api.getAuthCookie());
+    return apiCore.post(url, data);
   }
 
   /**
@@ -72,9 +57,9 @@ class Api {
    * @return {object}
    */
   static postAuthenticated(url, data = {}) {
-    const this = new Api();
-    const api = new ApiCore(this.baseUrl, this.getAuthCookie());
-    return api.postAuthenticated(url, data);
+    const api = new Api();
+    const apiCore = new ApiCore(api.baseUrl, Api.getAuthCookie());
+    return apiCore.postAuthenticated(url, data);
   }
 
   /**
@@ -84,9 +69,9 @@ class Api {
    * @return {object}
    */
   static put(url, data = {}) {
-    const this = new Api();
-    const api = new ApiCore(this.baseUrl, this.getAuthCookie());
-    return api.put(url, data);
+    const api = new Api();
+    const apiCore = new ApiCore(api.baseUrl, Api.getAuthCookie());
+    return apiCore.put(url, data);
   }
 
   /**
@@ -97,9 +82,9 @@ class Api {
    * @return {object}
    */
   static putAuthenticated(url, data = {}) {
-    const this = new Api();
-    const api = new ApiCore(this.baseUrl, this.getAuthCookie());
-    return api.putAuthenticated(url, data);
+    const api = new Api();
+    const apiCore = new ApiCore(api.baseUrl, Api.getAuthCookie());
+    return apiCore.putAuthenticated(url, data);
   }
 
   /**
@@ -109,9 +94,9 @@ class Api {
    * @return {object}
    */
   static delete(url, params = {}) {
-    const this = new Api();
-    const api = new ApiCore(this.baseUrl, this.getAuthCookie());
-    return api.delete(url, params);
+    const api = new Api();
+    const apiCore = new ApiCore(api.baseUrl, Api.getAuthCookie());
+    return apiCore.delete(url, params);
   }
 
   /**
@@ -122,9 +107,9 @@ class Api {
    * @return {object}
    */
   static deleteAuthenticated(url, params = {}) {
-    const this = new Api();
-    const api = new ApiCore(this.baseUrl, this.getAuthCookie());
-    return api.deleteAuthenticated(url, params);
+    const api = new Api();
+    const apiCore = new ApiCore(api.baseUrl, Api.getAuthCookie());
+    return apiCore.deleteAuthenticated(url, params);
   }
 
   /**
