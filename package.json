@@ -1,6 +1,6 @@
 {
   "name": "@harvest-profit/api",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Adds authentication to api requests and manages cookie.",
   "main": "dist/index.js",
   "private": false,
@@ -28,7 +28,7 @@
     "build": "rm -rf ./dist/* && babel src -d dist --source-maps",
     "test": "jest --coverage",
     "build-docs": "jsdoc src/* --configure jsdoc.conf.json --destination docs --readme README.md",
-    "pre-publish": "yarn run build",
+    "prepublish": "yarn run build",
     "authenticate": "git config --global user.email $GH_EMAIL && git config --global user.name $GH_NAME",
     "publish-docs": "yarn run build-docs && gh-pages -d docs -m '[ci skip] update pages'"
   },
