@@ -9,7 +9,7 @@ export const PER_PAGE_COUNT = 25;
  */
 class Api {
   constructor() {
-    this.baseUrl = process.env.apiCore_URL || 'http://localhost:3000/apiCore/v3';
+    this.baseUrl = process.env.API_URL || 'http://localhost:3000/api/v3';
   }
 
   /**

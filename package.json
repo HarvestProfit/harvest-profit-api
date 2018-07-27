@@ -1,6 +1,6 @@
 {
   "name": "@harvest-profit/api",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Adds authentication to api requests and manages cookie.",
   "main": "dist/index.js",
   "private": false,
