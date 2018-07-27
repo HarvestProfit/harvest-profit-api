@@ -3,6 +3,7 @@
   "version": "0.0.3",
   "description": "Adds authentication to api requests and manages cookie.",
   "main": "dist/index.js",
+  private: false,
   "files": [
     "LICENSE.md",
     "README.md",
