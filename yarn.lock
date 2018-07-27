@@ -16,6 +16,13 @@
     esutils "^2.0.2"
     js-tokens "^3.0.0"
 
+"@harvest-profit/api-core@0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@harvest-profit/api-core/-/api-core-0.0.1.tgz#8ebb473e4f576c6a272e2bf7132cca100735480d"
+  dependencies:
+    axios "^0.18.0"
+    js-cookie "^2.2.0"
+
 abab@^1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/abab/-/abab-1.0.4.tgz#5faad9c2c07f60dd76770f71cf025b62a63cfd4e"
