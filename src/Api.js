@@ -34,6 +34,7 @@ class Api {
    * @return {object}
    */
   static get(url, params = {}) {
+    const this = new Api();
     const api = new ApiCore(this.baseUrl, this.getAuthCookie());
     return api.get(url, params);
   }
@@ -46,6 +47,7 @@ class Api {
    * @return {object}
    */
   static getAuthenticated(url, params = {}) {
+    const this = new Api();
     const api = new ApiCore(this.baseUrl, this.getAuthCookie());
     return api.getAuthenticated(url, params);
   }
@@ -57,6 +59,7 @@ class Api {
    * @return {object}
    */
   static post(url, data = {}) {
+    const this = new Api();
     const api = new ApiCore(this.baseUrl, this.getAuthCookie());
     return api.post(url, data);
   }
@@ -69,6 +72,7 @@ class Api {
    * @return {object}
    */
   static postAuthenticated(url, data = {}) {
+    const this = new Api();
     const api = new ApiCore(this.baseUrl, this.getAuthCookie());
     return api.postAuthenticated(url, data);
   }
@@ -80,6 +84,7 @@ class Api {
    * @return {object}
    */
   static put(url, data = {}) {
+    const this = new Api();
     const api = new ApiCore(this.baseUrl, this.getAuthCookie());
     return api.put(url, data);
   }
@@ -92,6 +97,7 @@ class Api {
    * @return {object}
    */
   static putAuthenticated(url, data = {}) {
+    const this = new Api();
     const api = new ApiCore(this.baseUrl, this.getAuthCookie());
     return api.putAuthenticated(url, data);
   }
@@ -103,6 +109,7 @@ class Api {
    * @return {object}
    */
   static delete(url, params = {}) {
+    const this = new Api();
     const api = new ApiCore(this.baseUrl, this.getAuthCookie());
     return api.delete(url, params);
   }
@@ -115,6 +122,7 @@ class Api {
    * @return {object}
    */
   static deleteAuthenticated(url, params = {}) {
+    const this = new Api();
     const api = new ApiCore(this.baseUrl, this.getAuthCookie());
     return api.deleteAuthenticated(url, params);
   }
